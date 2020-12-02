@@ -8,7 +8,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class Sequence extends HttpServlet {
+public class Function extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         this.doPost(req, resp);
@@ -18,26 +18,13 @@ public class Sequence extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("gbk");
-        String num = req.getParameter("num");
-        if (num.equals("")) {
-            resp.sendRedirect("error.jsp");
-            return;
-        }
-        int one = Integer.parseInt(num);
-        if (one < 1 || one > 92) {
-            resp.sendRedirect("error.jsp");
-            return;
-        }
-        long a = 1;
-        long b = 1;
-        long temp;
-        for (int i = 3; i <= one; i++) {
-            temp = a;
-            a = b;
-            b += temp;
-        }
-        HttpSession session = req.getSession(true);
-        session.setAttribute("result", b);
+        String num1 = req.getParameter("x");
+        String num2 = req.getParameter("y");
+        int x = Integer.parseInt(num1);
+        int y = Integer.parseInt(num2);
+        int count=(x*2)+y;
+        HttpSession session = req.getSession();
+        session.setAttribute("result", count);
         resp.sendRedirect("/index.jsp");
     }
 }
